@@ -8,25 +8,47 @@ responsePromise
   .then((users) => {
     console.log(users);
     const cardContainer = document.createElement("div");
-    cardContainer.classList.add("row");
+    cardContainer.classList.add(
+      "container",
+      "row",
+      "row-cols-1",
+      "row-cols-md-2",
+      "row-cols-lg-3",
+      "g-4"
+    );
 
     users.forEach((user) => {
-      const column = document.createElement("div");
-      column.classList.add("col-6", "mb-4");
+      const userColumn = document.createElement("div");
+      userColumn.classList.add("col", "d-flex", "justify-content-center");
+
       const userCard = document.createElement("div");
       userCard.classList.add("card");
+      userCard.style.width = "16rem";
+      userCard.style.border = `3px solid ${user.color}`;
       userCard.innerHTML = `
-      
-      <div class="card-body">
+      <img src="https://picsum.photos/200/100" class="card-img-top" alt="...">
+      <div class="card-body" style="background-color:#c3c6c9">
         <h5 class="card-title">${user.firstName} ${user.lastName}</h5>
         <p class="card-text">Username: ${user.username}</p>
-        <p class="card-text">ID: ${user.id}</p>
+        <div class="btn-group">
+        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Social media
+        </button>
+        <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Facebook</a></li>
+        <li><a class="dropdown-item" href="#">X (Twitter)</a></li>
+        </ul>
+      </div>
       </div>
     `;
-      userCard.style.backgroundColor = user.color;
-      column.appendChild(userCard);
-      cardContainer.appendChild(userCard);
+
+      userColumn.appendChild(userCard);
+      cardContainer.appendChild(userColumn);
     });
 
-    document.body.appendChild(cardContainer);
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("d-flex", "justify-content-center");
+    wrapper.appendChild(cardContainer);
+    document.body.appendChild(wrapper);
+    document.body.style.backgroundColor = "#297478";
   });
